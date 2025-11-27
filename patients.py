@@ -1,5 +1,5 @@
 class Patient:
-    def __init__(self, pid, name, disease, gender, age):
+    def __init__(self, pid=None, name=None, disease=None, gender=None, age=None):
         self.pid = pid
         self.name = name
         self.disease = disease
