@@ -34,6 +34,8 @@ class DoctorManager:
             doctor_id = input("Enter doctor ID to search: ")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doctor_id:
+                print(f"{'Id':<5} {'Name':<20} {'Speciality':<15} {'Timing':<15} {'Qualification':<15} {'Room Number':<10}")
+                print("-" * 80)
                 print(self.format_dr_info(doctor))
                 return doctor
         print("Can't find the doctor...")
@@ -44,13 +46,20 @@ class DoctorManager:
             name = input("Enter doctor name to search: ")
         for doctor in self.doctors:
             if doctor.get_doctor_name().lower() == name.lower():
+                print(f"{'Id':<5} {'Name':<20} {'Speciality':<15} {'Timing':<15} {'Qualification':<15} {'Room Number':<10}")
+                print("-" * 80)
                 print(self.format_dr_info(doctor))
                 return doctor
         print("Can't find the doctor...")
         return None
     
     def display_doctor_info(self, doctor):
-        print(self.format_dr_info(doctor))
+        print(f"{doctor.get_doctor_id():<5} "
+              f"{doctor.get_name():<20} "
+              f"{doctor.get_specialization():<15} "
+              f"{doctor.get_working_time():<15} " 
+              f"{doctor.get_qualification():<15} " 
+              f"{doctor.get_room_number():<10}")
 
     def edit_doctor_info(self, doctor_id=None):
         if doctor_id is None:
@@ -68,6 +77,8 @@ class DoctorManager:
             print("Cannot find the doctor...")
 
     def display_doctors_list(self):
+        print(f"{'ID':<5} {'Name':<20} {'Speciality':<15} {'Timing':<15} {'Qualification':<15} {'Room Number':<10}")
+        print("-" * 80)
         for doctor in self.doctors:
             self.display_doctor_info(doctor)
 
