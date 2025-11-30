@@ -27,3 +27,25 @@ class Doctor:
     def get_doctor_room_number(self):
         return self.room_number
     
+    # Setters
+
+    def set_doctor_id(self, new_id):
+        self.doctor_id = new_id
+
+    def set_doctor_name(self, new_name):
+        self.name = new_name
+
+    def set_doctor_specialization(self, new_specialization):
+        self.specialization = new_specialization
+    
+    def set_doctor_working_time(self, new_working_time):
+        self.working_time = new_working_time
+    
+    def set_doctor_qualification(self, new_qualification):
+        self.qualification = new_qualification
+
+    def set_doctor_room_number(self, new_room_number):
+        self.room_number = new_room_number
+    
+    def __str__(self):
+        return f"{self.doctor_id}_{self.name}_{self.specialization}_{self.working_time}_{self.qualification}_{self.room_number}"

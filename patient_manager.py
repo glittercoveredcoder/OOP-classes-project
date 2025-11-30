@@ -3,6 +3,7 @@ from patients import Patient
 class PatientManager:
     def __init__(self):
         self.patients = []
+        self.read_patients_file()
 
     def format_patient_info_for_file(self, patient):
         return f"{patient.get_patient_id()}_{patient.get_patient_name()}_{patient.get_patient_disease()}_{patient.get_patient_gender()}_{patient.get_patient_age()}\n"
@@ -16,15 +17,22 @@ class PatientManager:
         new_patient = Patient(pid, name, disease, gender, age)
         return new_patient
     
-    def read_patients_file(self, filename):
+    def read_patients_file(self):
         try:
-            with open(filename, 'r') as file:
+            with open("./info/patients.txt", "r") as file:
                 for line in file:
-                    pid, name, disease, gender, age = line.strip().split('_')
-                    patient = Patient(pid, name, disease, gender, age)
+                    data = line.strip().split("_")
+
+                    # Skip header lines or malformed rows
+                    if data[0].lower() in ["id", "patientid", "patient_id"]:
+                        continue
+                    if len(data) != 5:
+                        continue
+
+                    patient = Patient(data[0], data[1], data[2], data[3], data[4])
                     self.patients.append(patient)
         except FileNotFoundError:
-            print(f"File {filename} not found.")
+            print("File patients.txt not found.")
 
     def search_patient_by_id(self):
         search_id = input("Enter Patient ID to search: ")
@@ -32,9 +40,8 @@ class PatientManager:
             if patient.get_patient_id() == search_id:
                 print(f"{'Id':<5} {'Name':<20} {'Disease':<15} {'Gender':<10} {'Age':<5}")
                 print("-" * 60)
-                print(patient.display_patient_info(patient))
-                return patient
-        print("Can't find the patient...")
+                print(self.display_patient_info(patient))
+        print("Can't find the patient with the given ID")
         return None
     
     def search_patient_by_name(self):
@@ -43,9 +50,8 @@ class PatientManager:
             if patient.get_patient_name().lower() == search_name.lower():
                 print(f"{'Id':<5} {'Name':<20} {'Disease':<15} {'Gender':<10} {'Age':<5}")
                 print("-" * 60)
-                self.display_patient_info(patient)
-                return patient
-        print("Can't find the patient...")
+                print(self.display_patient_info(patient))
+        print("Can't find the patient with the given Name")
         return None
 
     def display_patient_info(self, patient):
@@ -55,7 +61,7 @@ class PatientManager:
           f"{patient.get_patient_gender():<10} "
           f"{patient.get_patient_age():<5}")
         
-    def edit_patient_info_by_id(self, filename="patients.txt"):
+    def edit_patient_info_by_id(self, filename="./info/patients.txt"):
         edit_id = input("Enter Patient ID to edit: ")
         for patient in self.patients:
             if patient.get_patient_id() == edit_id:
@@ -64,7 +70,7 @@ class PatientManager:
                 patient.set_patient_disease(input("Enter Patient Disease: "))
                 patient.set_patient_gender(input("Enter Patient Gender: "))
                 patient.set_patient_age(input("Enter Patient Age: "))
-                self.write_list_of_patients_to_file(filename)
+                self.write_list_of_patients_to_file()
                 print("Patient information has been updated.")
                 return
         print("Patient not found.")
@@ -75,16 +81,16 @@ class PatientManager:
         for patient in self.patients:
             self.display_patient_info(patient)
     
-    def write_list_of_patients_to_file(self, filename):
-        with open(filename, 'w') as file:
+    def write_list_of_patients_to_file(self):
+        with open("./info/patients.txt", 'w') as file:
             for patient in self.patients:
                 file.write(self.format_patient_info_for_file(patient))
 
-    def add_patient_to_file(self, filename):
+    def add_patient_to_file(self):
         new_patient = self.enter_patient_info()
         self.patients.append(new_patient)
-        with open(filename, 'a') as file:
+        with open("./info/patients.txt", 'a') as file:
             file.write(self.format_patient_info_for_file(new_patient))
-        print("New patient added successfully.")
+        print(f"New patient with ID {new_patient.get_patient_id()} added successfully.")
 
     

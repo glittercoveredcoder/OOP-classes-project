@@ -27,7 +27,7 @@ class Management:
 
     def display_doctors_menu(self):
         while True:
-            print("\n=== Doctos Menu ===")
+            print("\n=== Doctors Menu ===")
             print("1. Display Doctors List")
             print("2. Search Doctor by ID")
             print("3. Search Doctor By Name")
@@ -44,10 +44,38 @@ class Management:
             elif choice == '3':
                 self.doctor_manager.search_doctor_by_name()
             elif choice == '4':
-                self.doctor_manager.add_new_doctor()
+                self.doctor_manager.add_dr_to_file()
             elif choice == '5':
                 self.doctor_manager.edit_doctor_info()
             elif choice == '6':
-                self.display_menu()
+                break
             else: 
                 print("Invalid choice. Please try again.")
+
+    def display_patients_menu(self):
+        while True:
+            print("\n=== Patients Menu ===")
+            print("1. Display Patients List")
+            print("2. Search Patient by ID")
+            print("3. Search Patient by Name")
+            print("4. Add New Patient")
+            print("5. Edit Patient Information")
+            print("6. Return to Main Menu")
+
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.patient_manager.display_patients_list()
+            elif choice == '2':
+                self.patient_manager.search_patient_by_id()
+            elif choice == '3':
+                self.patient_manager.search_patient_by_name()
+            elif choice == '4':
+                self.patient_manager.enter_patient_info()
+            elif choice == '5':
+                self.patient_manager.edit_patient_info_by_id()
+            elif choice == '6':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
