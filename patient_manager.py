@@ -41,6 +41,7 @@ class PatientManager:
                 print(f"{'Id':<5} {'Name':<20} {'Disease':<15} {'Gender':<10} {'Age':<5}")
                 print("-" * 60)
                 print(self.display_patient_info(patient))
+                return patient
         print("Can't find the patient with the given ID")
         return None
     
@@ -51,6 +52,7 @@ class PatientManager:
                 print(f"{'Id':<5} {'Name':<20} {'Disease':<15} {'Gender':<10} {'Age':<5}")
                 print("-" * 60)
                 print(self.display_patient_info(patient))
+                return patient
         print("Can't find the patient with the given Name")
         return None
 
@@ -72,7 +74,7 @@ class PatientManager:
                 patient.set_patient_age(input("Enter Patient Age: "))
                 self.write_list_of_patients_to_file()
                 print("Patient information has been updated.")
-                return
+                return patient
         print("Patient not found.")
 
     def display_patients_list(self):
